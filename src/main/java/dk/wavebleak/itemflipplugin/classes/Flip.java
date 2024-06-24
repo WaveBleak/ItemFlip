@@ -2,11 +2,10 @@ package dk.wavebleak.itemflipplugin.classes;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Getter
 @Setter
@@ -45,5 +44,9 @@ public class Flip {
             }
         }
         throw new IndexOutOfBoundsException("The item list is full");
+    }
+
+    public ItemStack getFirstFlipItem() {
+        return Arrays.stream(getItems()).filter(item -> !Objects.isNull(item)).findFirst().orElse(new ItemStack(Material.STONE));
     }
 }

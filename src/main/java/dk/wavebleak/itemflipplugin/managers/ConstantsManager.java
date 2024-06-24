@@ -14,19 +14,20 @@ public class ConstantsManager {
 
     private final String inventoryName;
     private final List<Material> whitelist = new ArrayList<>();
+    private final int maxFlips;
 
     public ConstantsManager(FileConfiguration config) {
         inventoryName = config.getString("inventory-name");
+        maxFlips = config.getInt("max-flips");
 
-        ConfigurationSection whitelistSection = config.getConfigurationSection("item-whitelist");
-
-        whitelistSection.getKeys(false).forEach(key -> {
+        List<String> whitelistItems = config.getStringList("item-whitelist");
+        for (String itemKey : whitelistItems) {
             try {
-                whitelist.add(Material.valueOf(key));
-            }catch (IllegalArgumentException ex) {
-                ItemFlipPlugin.getInstance().getLogger().warning("Kunne ikke forstå \"" + key + "\" i item whitelist!");
+                whitelist.add(Material.valueOf(itemKey));
+            } catch (IllegalArgumentException ex) {
+                ItemFlipPlugin.getInstance().getLogger().warning("Kunne ikke forstå \"" + itemKey + "\" i item whitelist!");
             }
-        });
+        }
     }
 
 }

@@ -8,6 +8,7 @@ import dk.wavebleak.itemflipplugin.classes.Bet;
 import dk.wavebleak.itemflipplugin.managers.CompletedFlipsManager;
 import dk.wavebleak.itemflipplugin.managers.ConstantsManager;
 import dk.wavebleak.itemflipplugin.managers.FlipsManager;
+import dk.wavebleak.wavespluginlib.WavesPluginLib;
 import dk.wavebleak.wavespluginlib.database.JsonManagerException;
 import lombok.Getter;
 import org.bukkit.Material;
@@ -43,6 +44,8 @@ public final class ItemFlipPlugin extends JavaPlugin {
     @Override
     public void onEnable() {
         instance = this;
+        WavesPluginLib.init(this);
+
 
         initDB();
     }

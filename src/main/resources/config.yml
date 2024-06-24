@@ -6,3 +6,6 @@ item-whitelist:
   - "STONE"
   - "SKULL"
   - "REDSTONE_BLOCK"
+
+# Max flips man må have igang (gælder både igangværende flips og flips man ikke har claimet)
+max-flips: 5
