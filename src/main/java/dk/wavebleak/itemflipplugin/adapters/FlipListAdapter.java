@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import dk.wavebleak.itemflipplugin.ItemFlipPlugin;
 import dk.wavebleak.itemflipplugin.classes.Bet;
 import dk.wavebleak.itemflipplugin.classes.Flip;
 import dk.wavebleak.itemflipplugin.extensions.ItemStackExtension;
@@ -20,10 +21,7 @@ import java.util.UUID;
 @ExtensionMethod({StringExtension.class, ItemStackExtension.class})
 public class FlipListAdapter extends TypeAdapter<List<Flip>> {
 
-    private final TypeAdapter<Bet> betAdapter;
-    public FlipListAdapter() {
-        this.betAdapter = new Gson().getAdapter(Bet.class);
-    }
+    private final TypeAdapter<Bet> betAdapter = new BetAdapter();
 
     @Override
     public void write(JsonWriter jsonWriter, List<Flip> flipList) throws IOException {
