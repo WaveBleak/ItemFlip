@@ -1,0 +1,8 @@
+# Navn på itemflip inventory
+inventory-name: "&e&lItem &6&lFlip"
+
+# Liste af item types som gerne må blive bettet
+item-whitelist:
+  - "STONE"
+  - "SKULL"
+  - "REDSTONE_BLOCK"

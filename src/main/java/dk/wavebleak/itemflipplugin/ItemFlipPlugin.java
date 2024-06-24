@@ -6,33 +6,31 @@ import dk.wavebleak.itemflipplugin.adapters.BetAdapter;
 import dk.wavebleak.itemflipplugin.adapters.CompletedFlipListAdapter;
 import dk.wavebleak.itemflipplugin.classes.Bet;
 import dk.wavebleak.itemflipplugin.managers.CompletedFlipsManager;
+import dk.wavebleak.itemflipplugin.managers.ConstantsManager;
 import dk.wavebleak.itemflipplugin.managers.FlipsManager;
 import dk.wavebleak.wavespluginlib.database.JsonManagerException;
 import lombok.Getter;
+import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 public final class ItemFlipPlugin extends JavaPlugin {
     @Getter
     private static ItemFlipPlugin instance;
     @Getter
-    private static Gson gson;
-    @Getter
     private static FlipsManager flipsManager;
     @Getter
     private static CompletedFlipsManager completedFlipsManager;
-
-    public void initGson() {
-        gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .registerTypeAdapter(Bet.class, new BetAdapter())
-                .create();
-    }
+    @Getter
+    private static ConstantsManager constants;
 
     public void initDB() {
+        saveDefaultConfig();
         flipsManager = new FlipsManager();
         completedFlipsManager = new CompletedFlipsManager();
+        constants = new ConstantsManager(getConfig());
 
         try {
             flipsManager.init();
@@ -46,9 +44,19 @@ public final class ItemFlipPlugin extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        initGson();
         initDB();
+    }
 
+    public void load() {
+        initDB();
+    }
+    public void save() {
+        completedFlipsManager.saveData(new ArrayList<>());
+        flipsManager.saveData(new ArrayList<>());
+    }
+    public void reload() {
+        save();
+        load();
     }
 
     @Override
